@@ -7,7 +7,7 @@ import javax.persistence.Id;
 
 @Entity
 public abstract class User {
-
+//User fields
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
