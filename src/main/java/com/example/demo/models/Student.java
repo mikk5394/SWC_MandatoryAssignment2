@@ -3,5 +3,5 @@ package com.example.demo.models;
 import javax.persistence.Entity;
 
 @Entity
-public class Student extends User{
+public class Student extends User {
 }
