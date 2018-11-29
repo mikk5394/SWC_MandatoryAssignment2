@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="swc_mandatory2" target="11" />
+      <module name="swc_mandatory2" target="10" />
     </bytecodeTargetLevel>
   </component>
 </project>
