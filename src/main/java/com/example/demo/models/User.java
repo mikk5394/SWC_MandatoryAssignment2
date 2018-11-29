@@ -15,7 +15,7 @@ public abstract class User {
     private String lastName;
     private String email;
     private String password;
-
+    //constructor
     public User(){}
 
     public Long getId() {
