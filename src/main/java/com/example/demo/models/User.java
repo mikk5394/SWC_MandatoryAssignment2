@@ -7,7 +7,7 @@ import javax.persistence.Id;
 
 @Entity
 public abstract class User {
-//User fields
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -15,7 +15,8 @@ public abstract class User {
     private String lastName;
     private String email;
     private String password;
-    //constructor
+
+
     public User(){}
 
     public Long getId() {
