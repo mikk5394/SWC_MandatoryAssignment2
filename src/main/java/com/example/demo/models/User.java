@@ -1,9 +1,7 @@
 package com.example.demo.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public abstract class User {
@@ -14,10 +12,17 @@ public abstract class User {
     private String firstName;
     private String lastName;
     private String email;
+
+    @Column(name = "username", unique = true)
+    private String username;
     private String password;
 
-
     public User(){}
+
+    public User(){
+
+    }
+
 
     public Long getId() {
         return id;
@@ -49,6 +54,14 @@ public abstract class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
