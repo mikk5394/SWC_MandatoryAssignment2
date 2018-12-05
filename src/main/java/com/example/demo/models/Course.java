@@ -5,71 +5,41 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table (name = "CourseTable")
+@Table (name = "Course")
 public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "courseId")
     private Long id;
-
-    @Column(name = "nameCourseDanish")
     private String nameDanish;
-
-    @Column(name = "nameCourseEnglish")
     private String nameEnglish;
-
-    @Column(name = "semester")
     private int semester;
-
-    @Column(name = "studyProgram")
     private String studyProgram;
-
-    @Column(name = "mandatoryOrElective")
     private boolean mandatory;
-
-    @Column(name = "ects")
     private int ectsPoints;
-
-    @Column(name = "courseLanguage")
     private String language;
-
-    @Column(name = "minNumberStudents")
     private int minNumberStudents;
-
-    @Column(name = "maxNumberOfStudents")
     private int maxNumberOfStudents;
-
-    @Column(name = "expNumberOfStudents")
     private int expNumberOfStudents;
-
-    @Column(name = "prerequisites")
     private String prerequisites;
-
-    @Column(name = "learningOutcome")
     private String learningOutcome;
-
-    @Column(name = "content")
     private String content;
-
-    @Column(name = "learningActivities")
     private String learningActivities;
-
-    @Column(name = "examForm")
     private String examForm;
 
-    //skal muligvis laves om til en int senere
-    @Column(name = "assignedTeachers")
+    @ManyToMany
     private List<Teacher> assignedTeachers;
 
-
+    @ManyToMany
+    private List<Student> assignedStudents;
 
 
     public Course(){}
 
-    public Course(String nameDanish, String nameEnglish, int semester, String studyProgram, boolean mandatory, int ectsPoints, String language,
-                  int minNumberStudents, int maxNumberOfStudents, int expNumberOfStudents, String prerequisites, String learningOutcome, String content,
-                  String learningActivities, String examForm, List<Teacher> assignedTeachers) {
+    public Course(String nameDanish, String nameEnglish, int semester, String studyProgram, boolean mandatory,
+                  int ectsPoints, String language, int minNumberStudents, int maxNumberOfStudents, int expNumberOfStudents,
+                  String prerequisites, String learningOutcome, String content, String learningActivities, String examForm,
+                  List<Teacher> assignedTeachers, List<Student> assignedStudents) {
         this.nameDanish = nameDanish;
         this.nameEnglish = nameEnglish;
         this.semester = semester;
@@ -86,6 +56,7 @@ public class Course {
         this.learningActivities = learningActivities;
         this.examForm = examForm;
         this.assignedTeachers = assignedTeachers;
+        this.assignedStudents = assignedStudents;
     }
 
     public Long getId() {
@@ -222,5 +193,13 @@ public class Course {
 
     public void setAssignedTeachers(List<Teacher> assignedTeachers) {
         this.assignedTeachers = assignedTeachers;
+    }
+
+    public List<Student> getAssignedStudents() {
+        return assignedStudents;
+    }
+
+    public void setAssignedStudents(List<Student> assignedStudents) {
+        this.assignedStudents = assignedStudents;
     }
 }

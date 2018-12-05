@@ -4,6 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "TeacherTable")
+@Table(name = "Teacher")
 public class Teacher extends User{
 }
