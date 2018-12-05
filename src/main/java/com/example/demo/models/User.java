@@ -21,6 +21,7 @@ public abstract class User {
 
     public User(){}
 
+    //Sætter username til at være lig med email da email er sat til at være unique
     public User(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
