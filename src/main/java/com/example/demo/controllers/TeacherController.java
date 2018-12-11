@@ -1,27 +1,21 @@
 package com.example.demo.controllers;
 
-import com.example.demo.models.repositories.UserRepository;
+import com.example.demo.models.repositories.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class TeacherController {
 
     @Autowired
-    UserRepository userRepository;
+    CourseRepository courseRepository;
 
-    @GetMapping("/frontpage")
-    public String loggedIn(){
+    @GetMapping("/teacher")
+    public String index(){
 
-        return "teacher/frontpage";
+        return "teacherDirectory/teacher";
     }
 
-
-    @GetMapping("/createCourse")
-    public String createCourse(){
-
-        return "teacher/createCourse";
-    }
 
 }

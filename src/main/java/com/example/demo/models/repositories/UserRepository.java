@@ -1,3 +1,5 @@
+
+
 package com.example.demo.models.repositories;
 
 import com.example.demo.models.User;
@@ -10,3 +12,4 @@ public interface UserRepository extends CrudRepository<User, Long> {
     //Ingen grund til at returnere en liste her da ingen kan ha' samme email
     User findByEmail(String email);
 }
+
