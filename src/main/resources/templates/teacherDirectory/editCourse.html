@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xlmns:th="http://www.thymeleaf.org"
-      xmlns:xlmns="http://www.w3.org/1999/xhtml">
+      xmlns:xlmns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <meta charset="utf-8">
@@ -37,12 +37,18 @@
                 <h4 class="my-0 font-weight-normal">Computer Science</h4>
             </div>
             <div class="card-body">
-                <h1 class="card-title pricing-card-title">4 <small class="text-muted">/ months</small></h1>
                 <ul class="list-unstyled mt-3 mb-4">
-                    <li>30 ECTS points</li>
-                    <li>English educational</li>
-                    <li>Requires Java</li>
-                    <li>Current teacher teaching: Faisal</li>
+                    <label>Available courses:</label>
+                    <select th:field="${course.assignedTeachers}" class="custom-select d-block w-100" id="courseTeacher" required>
+
+                        <option value="0">Choose...</option>
+                        <option th:each="teacher : ${teacher}" th:value="${teacher.id}"
+                                th:text="${teacher.name}">Choose...
+                        </option>
+                    </select>
+                    <div class="invalid-feedback" style="width: 100%;">
+                        You have to choose a course before you can press edit.
+                    </div>
                 </ul>
                 <button type="button" class="btn btn-lg btn-block btn-primary">Edit</button>
             </div>

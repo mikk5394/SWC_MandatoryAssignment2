@@ -50,4 +50,16 @@ public class CourseController {
 
         return "redirect:/teacher";
     }
+
+    @GetMapping("/editCourse")
+    public String editCourse(HttpServletRequest request){
+
+        if (SessionHelper.isTeacher(request)){
+
+            return "teacherDirectory/editCourse";
+        } else {
+            return "redirect:/login";
+        }
+    }
+
 }
