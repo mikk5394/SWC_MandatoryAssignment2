@@ -237,6 +237,6 @@ public class Course {
 
     @Override
     public String toString() {
-        return "" + id;
+        return "" + id + " name of course: " + nameEnglish;
     }
 }

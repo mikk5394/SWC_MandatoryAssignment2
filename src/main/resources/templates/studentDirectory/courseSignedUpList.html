@@ -22,7 +22,7 @@
 
 <form th:action="@{/courseSignedUpList}" method="POST">
 
-<main role="main" class="container">
+    <main role="main" class="container">
 
     <div class="starter-template">
         <h1>Assigned courses for you</h1>
@@ -54,13 +54,13 @@
         <tbody>
         </tr>
 
-        <tr th:each="courses: ${courses}">
-            <td th:text="${courses.nameEnglish}"></td>
-            <td th:text="${courses.studyProgram}"></td>
-            <td th:text="${courses.language}"></td>
-            <td th:text="${courses.maxNumberOfStudents}"></td>
-            <td th:text="${courses.content}"></td>
-            <td th:text="${courses.learningOutcome}"></td>
+        <tr th:each="course: ${course}">
+            <td th:text="${course.nameEnglish}"></td>
+            <td th:text="${course.studyProgram}"></td>
+            <td th:text="${course.language}"></td>
+            <td th:text="${course.maxNumberOfStudents}"></td>
+            <td th:text="${course.content}"></td>
+            <td th:text="${course.learningOutcome}"></td>
         </tr>
         </tbody>
     </table>

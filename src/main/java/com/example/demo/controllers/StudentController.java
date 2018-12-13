@@ -88,28 +88,21 @@ public class StudentController {
             List<Course> courses = new ArrayList<>();
             courses.addAll(courseRepository.findAll());
 
-            List<Course> coursesForStudent = new ArrayList<Course>();
-            //coursesForStudent.add(courses.get(0));
-            //coursesForStudent.add(courses.get(1));
+            List<Course> coursesForStudent = new ArrayList<>();
 
-            int counter = 0;
-            for (Course c: courses) {
-                if (c.getStudentWaitingList().size() != 0 && c.getStudentWaitingList().get(counter).equals(student)){
-                    coursesForStudent.add(c);
-                    counter++;
+            for (int i = 0; i < courses.size(); i++) {
+                for (int k = 0; k < courses.get(i).getStudentWaitingList().size(); k++) {
+                    if (courses.get(i).getStudentWaitingList().get(k).getId() == student.getId()) {
+                        coursesForStudent.add(courses.get(i));
+
+                    }
                 }
             }
-            System.out.println(coursesForStudent);
-            System.out.println(courses.size());
 
-            model.addAttribute("courses", coursesForStudent);
+            model.addAttribute("course", coursesForStudent);
 
             return "studentDirectory/courseSignedUpList";
 
-            //Optional<Course> optCourse = courseRepository.findById(student.getId());
-            //Course course = optCourse.get();
-
-            //model.addAttribute("courses", course);
 
         } else {
             SessionHelper.logout(request);
