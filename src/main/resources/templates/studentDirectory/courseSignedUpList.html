@@ -20,6 +20,7 @@
 
 <body>
 
+<form th:action="@{/courseSignedUpList}" method="POST">
 
 <main role="main" class="container">
 
@@ -27,6 +28,46 @@
         <h1>Assigned courses for you</h1>
         <p class="lead">Below you'll see all the courses you're assigned to.</p>
     </div>
+
+    <html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>List of courses you're signed up for</title>
+        <style>
+            td, th {
+                border: 1px solid black;
+            }
+        </style>
+    </head>
+    <body>
+    <table>
+        <thead>
+        <tr>
+            <th>Course name:</th>
+            <th>Study Program:</th>
+            <th>Course language:</th>
+            <th>Max students:</th>
+            <th>Content:</th>
+            <th>Learning outcome:</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        </tr>
+
+        <tr th:each="courses: ${courses}">
+            <td th:text="${courses.nameEnglish}"></td>
+            <td th:text="${courses.studyProgram}"></td>
+            <td th:text="${courses.language}"></td>
+            <td th:text="${courses.maxNumberOfStudents}"></td>
+            <td th:text="${courses.content}"></td>
+            <td th:text="${courses.learningOutcome}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    </body>
+    </html>
+
 
 </main><!-- /.container -->
 

@@ -2,7 +2,6 @@ package com.example.demo.controllers;
 
 import com.example.demo.Service.SessionHelper;
 import com.example.demo.models.Course;
-import com.example.demo.models.Teacher;
 import com.example.demo.models.repositories.CourseRepository;
 import com.example.demo.models.repositories.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,7 @@ public class CourseController {
 
         model.addAttribute("courses", listOfCourses);
 
-        return "allCourses";
+        return "courseSignedUp";
     }
 
     @GetMapping("/createCourse")
@@ -39,6 +38,7 @@ public class CourseController {
 
             return "teacherDirectory/createCourse";
         } else {
+            SessionHelper.logout(request);
             return "redirect:/login";
         }
     }
@@ -51,15 +51,45 @@ public class CourseController {
         return "redirect:/teacher";
     }
 
-    @GetMapping("/editCourse")
-    public String editCourse(HttpServletRequest request){
+    @GetMapping("/viewCoursesTeacher")
+    public String viewCourse(Model model, HttpServletRequest request){
+
 
         if (SessionHelper.isTeacher(request)){
 
-            return "teacherDirectory/editCourse";
+            //model.addAttribute("course", courseRepository.findAll());
+            model.addAttribute("computerscience", courseRepository.findAllByStudyProgram("ComputerScience"));
+            model.addAttribute("webdevelopment", courseRepository.findAllByStudyProgram("WebDevelopment"));
+            model.addAttribute("softwaredevelopment", courseRepository.findAllByStudyProgram("SoftwareDevelopment"));
+            model.addAttribute("itsecurity", courseRepository.findAllByStudyProgram("ITSecurity"));
+
+            return "teacherDirectory/viewCoursesTeacher";
         } else {
+            SessionHelper.logout(request);
             return "redirect:/login";
         }
     }
 
+    @GetMapping("/editCourse")
+    public String editCourse(@RequestParam(value = "id", defaultValue = "1") Long id, Model model, HttpServletRequest request){
+
+        if (SessionHelper.isTeacher(request)){
+
+            model.addAttribute("course", courseRepository.findById(id));
+            model.addAttribute("teacher", teacherRepository.findAll());
+
+            return "teacherDirectory/editCourse";
+        } else {
+            SessionHelper.logout(request);
+            return "redirect:/login";
+        }
+    }
+
+    @PostMapping("/editCourse")
+    public String editCourse(@ModelAttribute Course course){
+
+        courseRepository.save(course);
+
+        return "redirect:/teacher";
+    }
 }

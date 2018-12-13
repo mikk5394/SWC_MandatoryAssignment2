@@ -9,94 +9,207 @@
     <meta name="author" content="">
     <link rel="icon" href="../../../../favicon.ico">
 
-    <title>Course edit</title>
+    <title>Edit a course</title>
 
-    <!-- Bootstrap core CSS -->
+
     <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="pricing.css" rel="stylesheet">
+    <link href="form-validation.css" rel="stylesheet">
 </head>
 
-<body>
+<body class="bg-light">
 
-<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-    <h5 class="my-0 mr-md-auto font-weight-normal">KEA Administration</h5>
-    <a class="btn btn-outline-primary" href="#">Log out</a>
-</div>
-
-<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-    <h1 class="display-4">Please choose a course you wish to edit</h1>
-    <p class="lead">If you, as a teacher, wish to edit an exsisting course, please choose the following course you wish to edit below.</p>
-</div>
+<form th:action="@{/editCourse}" method="POST">
+<input type="hidden" th:field="${course.id}" /> <br />
 
 <div class="container">
-    <div class="card-deck mb-3 text-center">
-        <div class="card mb-4 shadow-sm">
-            <div class="card-header">
-                <h4 class="my-0 font-weight-normal">Computer Science</h4>
-            </div>
-            <div class="card-body">
-                <h1 class="card-title pricing-card-title">4 <small class="text-muted">/ months</small></h1>
-                <ul class="list-unstyled mt-3 mb-4">
-                    <li>30 ECTS points</li>
-                    <li>English educational</li>
-                    <li>Requires Java</li>
-                    <li>Current teacher teaching: Faisal</li>
-                </ul>
-                <button type="button" class="btn btn-lg btn-block btn-primary">Edit</button>
-            </div>
-        </div>
-        <div class="card mb-4 shadow-sm">
-            <div class="card-header">
-                <h4 class="my-0 font-weight-normal">Web Development</h4>
-            </div>
-            <div class="card-body">
-                <h1 class="card-title pricing-card-title">3 <small class="text-muted">/ months</small></h1>
-                <ul class="list-unstyled mt-3 mb-4">
-                    <li>30 ECTS points</li>
-                    <li>English educational</li>
-                    <li>Requires 3rd semester</li>
-                    <li>Current teacher teaching: Jakup Pukaj</li>
-                </ul>
-                <button type="button" class="btn btn-lg btn-block btn-primary">Edit</button>
-            </div>
-        </div>
-        <div class="card mb-4 shadow-sm">
-            <div class="card-header">
-                <h4 class="my-0 font-weight-normal">Software Devel</h4>
-            </div>
-            <div class="card-body">
-                <h1 class="card-title pricing-card-title">4 <small class="text-muted">/ months</small></h1>
-                <ul class="list-unstyled mt-3 mb-4">
-                    <li>20 ECTS points</li>
-                    <li>Danish educational</li>
-                    <li>Requires 4th semester</li>
-                    <li>Current teacher teaching: Ole Wedel</li>
-                </ul>
-                <button type="button" class="btn btn-lg btn-block btn-primary">Edit</button>
-            </div>
-        </div>
-        <div class="card mb-4 shadow-sm">
-            <div class="card-header">
-                <h4 class="my-0 font-weight-normal">IT Security</h4>
-            </div>
-            <div class="card-body">
-                <h1 class="card-title pricing-card-title">4 <small class="text-muted">/ months</small></h1>
-                <ul class="list-unstyled mt-3 mb-4">
-                    <li>25 ECTS points</li>
-                    <li>English educational</li>
-                    <li>Requires 60 ECTs points</li>
-                    <li>Current teacher teaching: Palle Pophår</li>
-                </ul>
-                <button type="button" class="btn btn-lg btn-block btn-primary">Edit</button>
-            </div>
-        </div>
+    <div class="py-5 text-center">
+        <img class="d-block mx-auto mb-4" src="../../assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+        <h2>Course form</h2>
+        <p class="lead">Below is information needed to edit a course</p>
     </div>
 
+    <div class="row">
+        <div class="col-md-8 order-md-1">
+            <h4 class="mb-3">Choose what you want to edit and hit edit on the buttom.</h4>
+            <form class="needs-validation" novalidate>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="nameDanish">Course name in danish</label>
+                        <input th:field="${course.nameDanish}" type="text" class="form-control" id="nameDanish" placeholder="" value="" required>
+                        <div class="invalid-feedback">
+                            Valid course name is required.
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="nameEnglish">Course name in english</label>
+                        <input th:field="${course.nameEnglish}" type="text" class="form-control" id="nameEnglish" placeholder="" value="" required>
+                        <div class="invalid-feedback">
+                            Valid course name is required.
+                        </div>
+                    </div>
+                </div>
 
+                <div class="mb-3">
+
+                    <div class="input-group">
+                        <label>Available teachers:</label>
+                        <select th:field="${course.assignedTeachers}" class="custom-select d-block w-100" id="courseTeacher" required>
+
+                            <option value="0">Choose...</option>
+                            <option th:each="teacher : ${teacher}" th:value="${teacher.id}"
+                                    th:text="${teacher.name}">Choose...
+                            </option>
+                        </select>
+                        <div class="invalid-feedback" style="width: 100%;">
+                            Please assign a valid teacher(s) for this course.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="content">Course information</label>
+                    <input th:field="${course.content}" type="text" class="form-control" id="content" placeholder="" value="" required>
+                    <div class="invalid-feedback">
+                        Please enter information for the course here.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <div class="input-group">
+                        <label for=courseSemester>Semester for the course:</label>
+                        <select th:field="${course.semester}" class="custom-select d-block w-100" id="courseSemester" required>
+
+                            <option value="0">Choose...</option>
+                            <option th:value="1">1st semester</option>
+                            <option th:value="2">2nd semester</option>
+                            <option th:value="3">3rd semester</option>
+                            <option th:value="4">4th semester</option>
+                            <option th:value="5">5th semester</option>
+                        </select>
+                        <div class="invalid-feedback" style="width: 100%;">
+                            Please assign a valid teacher(s) for this course.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-5 mb-3">
+                        <label for="courseLanguage">Language for the course:</label>
+                        <select th:field="${course.language}" class="custom-select d-block w-100" id="courseLanguage" required>
+                            <option value="0">Choose...</option>
+                            <option th:value="Danish">Danish</option>
+                            <option th:value="English">English</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Please select a valid language.
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-5 mb-3">
+                            <label for="studyProgram">Studyprogram:</label>
+                            <select th:field="${course.studyProgram}" class="custom-select d-block w-100" id="studyProgram" required>
+                                <option value="0">Choose...</option>
+                                <option th:value="ComputerScience">Computer Science</option>
+                                <option th:value="WebDevelopment">Web Development</option>
+                                <option th:value="SoftwareDevelopment">Software Development</option>
+                                <option th:value="ITSecurity">IT-Security</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please select a valid courseprogram.
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 mb-3">
+                            <label for="ectsPoints">ECTS</label>
+                            <input th:field="${course.ectsPoints}" type="number" class="form-control" id="ectsPoints" placeholder="" value="" required>
+                            <div class="invalid-feedback">
+                                ECTS amount required.
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="minNumberStudents">Minimum students</label>
+                        <input th:field="${course.minNumberStudents}" type="number" class="form-control" id="minNumberStudents" placeholder="" value="" required>
+                        <div class="invalid-feedback">
+                            Minimum students required.
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label for="maxNumberOfStudents">Maximum students</label>
+                        <input th:field="${course.maxNumberOfStudents}" type="number" class="form-control" id="maxNumberOfStudents" placeholder="" value="" required>
+                        <div class="invalid-feedback">
+                            Maximum students required.
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label for="expNumberOfStudents">Expected students</label>
+                        <input th:field="${course.expNumberOfStudents}" type="number" class="form-control" id="expNumberOfStudents" placeholder="" value="" required>
+                        <div class="invalid-feedback">
+                            Expected students required.
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="mb-3">
+                    <label for="prerequisites">Prerequisites</label>
+                    <input th:field="${course.prerequisites}" type="text" class="form-control" id="prerequisites" placeholder="" value="" required>
+                    <div class="invalid-feedback">
+                        Please enter prerequisites for the course here.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="learningActivities">Learning activities</label>
+                    <input th:field="${course.learningActivities}" type="text" class="form-control" id="learningActivities" placeholder="" value="" required>
+                    <div class="invalid-feedback">
+                        Please enter prerequisites for the course here.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="learningOutcome">Learning outcome</label>
+                    <input th:field="${course.learningOutcome}" type="text" class="form-control" id="learningOutcome" placeholder="" value="" required>
+                    <div class="invalid-feedback">
+                        Please enter prerequisites for the course here.
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-5 mb-3">
+                        <label for="examForm">Exam form: </label>
+                        <select th:field="${course.examForm}" class="custom-select d-block w-100" id="examForm" required>
+                            <option value="0">Choose...</option>
+                            <option th:value="OnlineWritten">Online written</option>
+                            <option th:value="PhysicalOral">Physical oral</option>
+                            <option th:value="PhysicalWritten">Physical written</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Please select a valid exam form.
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <label>Mandatory or elective:</label>
+                            <select th:field="${course.mandatory}" class="form-control">
+                                <option value="0">Choose...</option>
+                                <option th:value="1">Mandatory</option>
+                                <option th:value="0">Elective</option>
+                            </select>
+                        </div>
+                    </div>
+                    <hr class="mb-4">
+                    <button class="btn btn-primary btn-lg btn-block" type="submit" value="Send">Update edited course</button>
+            </form>
+        </div>
+    </div>
 </div>
-
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
@@ -107,11 +220,27 @@
 <script src="../../dist/js/bootstrap.min.js"></script>
 <script src="../../assets/js/vendor/holder.min.js"></script>
 <script>
-    Holder.addTheme('thumb', {
-        bg: '#55595c',
-        fg: '#eceeef',
-        text: 'Thumbnail'
-    });
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function() {
+        'use strict';
+
+        window.addEventListener('load', function() {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
 </script>
+</form>
 </body>
 </html>

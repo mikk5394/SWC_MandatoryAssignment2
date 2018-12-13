@@ -33,13 +33,15 @@ public class Course {
     @ManyToMany
     private List<Student> assignedStudents;
 
+    @ManyToMany
+    private List<Student> studentWaitingList;
 
     public Course(){}
 
     public Course(String nameDanish, String nameEnglish, int semester, String studyProgram, boolean mandatory,
                   int ectsPoints, String language, int minNumberStudents, int maxNumberOfStudents, int expNumberOfStudents,
                   String prerequisites, String learningOutcome, String content, String learningActivities, String examForm,
-                  List<Teacher> assignedTeachers, List<Student> assignedStudents) {
+                  List<Teacher> assignedTeachers, List<Student> assignedStudents, List<Student> studentWaitingList) {
         this.nameDanish = nameDanish;
         this.nameEnglish = nameEnglish;
         this.semester = semester;
@@ -57,6 +59,28 @@ public class Course {
         this.examForm = examForm;
         this.assignedTeachers = assignedTeachers;
         this.assignedStudents = assignedStudents;
+        this.studentWaitingList = studentWaitingList;
+    }
+
+    public void addStudentToCourse(Student student){
+        assignedStudents.add(student);
+    }
+
+    public void addStudentToWaitingList(Student student){
+        studentWaitingList.add(student);
+    }
+
+    public void removeStudentFromWaitingList(Student student){
+
+        int index = 0;
+
+        for (int i = 0; i<studentWaitingList.size(); i++){
+            if(studentWaitingList.get(i).getId().equals(student.getId())){
+                index = i;
+            }
+        }
+        studentWaitingList.remove(index);
+
     }
 
     public Long getId() {
@@ -201,5 +225,18 @@ public class Course {
 
     public void setAssignedStudents(List<Student> assignedStudents) {
         this.assignedStudents = assignedStudents;
+    }
+
+    public List<Student> getStudentWaitingList() {
+        return studentWaitingList;
+    }
+
+    public void setStudentWaitingList(List<Student> studentWaitingList) {
+        this.studentWaitingList = studentWaitingList;
+    }
+
+    @Override
+    public String toString() {
+        return "" + id;
     }
 }
