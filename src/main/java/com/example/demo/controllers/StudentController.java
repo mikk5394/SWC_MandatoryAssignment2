@@ -94,7 +94,6 @@ public class StudentController {
                 for (int k = 0; k < courses.get(i).getStudentWaitingList().size(); k++) {
                     if (courses.get(i).getStudentWaitingList().get(k).getId() == student.getId()) {
                         coursesForStudent.add(courses.get(i));
-
                     }
                 }
             }

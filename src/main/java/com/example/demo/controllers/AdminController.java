@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.Service.SessionHelper;
+import com.example.demo.models.Course;
 import com.example.demo.models.repositories.CourseRepository;
 import com.example.demo.models.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class AdminController {
@@ -33,6 +36,11 @@ public class AdminController {
     public String signedStudents(HttpServletRequest request, Model model){
 
         if (SessionHelper.isAdmin(request)){
+
+            List<Course> courses = new ArrayList<>();
+            courses.addAll(courseRepository.findAll());
+
+            List<Course> coursesWithWaitingList = new ArrayList<>();
 
 
 
