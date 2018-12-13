@@ -21,73 +21,61 @@
 <body>
 
 <form th:action="@{/signedStudents}" method="POST">
+<main role="main" class="container">
 
-    <main role="main" class="container">
+    <div class="starter-template">
+        <h1>Students waiting for selected course</h1>
+    </div>
 
-        <div class="starter-template">
-            <h1>Pending requests</h1>
-            <p class="lead">Below you'll see all the courses people have signed up for.</p>
-        </div>
+    <html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>waiting list for course</title>
+        <style>
+            td, th {
+                border: 1px solid black;
+            }
+        </style>
+    </head>
+    <body>
+    <table>
+        <thead>
+        <tr>
+            <th>Student ID:</th>
+            <th>Student name:</th>
+            <th>Student email:</th>
 
-        <html lang="en" xmlns:th="http://www.thymeleaf.org">
-        <head>
-            <title>List of courses you're signed up for</title>
-            <style>
-                td, th {
-                    border: 1px solid black;
-                }
-            </style>
-        </head>
-        <body>
-        <table>
-            <thead>
-            <tr>
-                <th>Course name:</th>
-                <th>Study Program:</th>
-                <th>Course language:</th>
-                <th>Max students:</th>
-                <th>Content:</th>
-                <th>Learning outcome:</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tr>
 
-            </tr>
-            </thead>
-            <tbody>
-            </tr>
+        <tr th:each="student: ${student}">
+            <td th:text="${student.id}"></td>
+            <td th:text="${student.name}"></td>
+            <td th:text="${student.email}"></td>
 
-            <tr th:each="courses: ${courses}">
-                <td th:text="${courses.nameEnglish}"></td>
-                <td th:text="${courses.studyProgram}"></td>
-                <td th:text="${courses.language}"></td>
-                <td th:text="${courses.maxNumberOfStudents}"></td>
-                <td th:text="${courses.content}"></td>
-                <td th:text="${courses.learningOutcome}"></td>
+            <td>
+                <a href="/admin" role="button">Approve</a>
 
-                <td>
-                    <a th:href="@{'editItem?id=' + ${item.id}}">
-                        <button>Approve</button>
-                    </a>
-                    <div th:if="${item.type == 'Glas'}">
-                        <a th:href="@{'materialList?id=' + ${item.id}}">
-                            <button>Reject</button>
-                        </a>
-                </td>
+                <a href="/admin" role="button">Reject</a>
+            </td>
 
-            </tr>
-            </tbody>
-        </table>
+        </tr>
+        </tbody>
+    </table>
 
-        </body>
-        </html>
+    </body>
+    </html>
 
 
-    </main><!-- /.container -->
+</main><!-- /.container -->
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-    <script src="../../assets/js/vendor/popper.min.js"></script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script src="../../assets/js/vendor/popper.min.js"></script>
+<script src="../../dist/js/bootstrap.min.js"></script>
 </body>
 </html>
