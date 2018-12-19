@@ -4,8 +4,6 @@ import com.example.demo.Service.SessionHelper;
 import com.example.demo.models.Course;
 import com.example.demo.models.Student;
 import com.example.demo.models.repositories.CourseRepository;
-import com.example.demo.models.repositories.StudentRespository;
-import com.example.demo.models.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,8 +17,6 @@ import java.util.Optional;
 @Controller
 public class AdminController {
 
-    @Autowired
-    StudentRespository studentRespository;
     @Autowired
     CourseRepository courseRepository;
 
@@ -99,8 +95,5 @@ public class AdminController {
         }
 
     }
-
-
-
 
 }

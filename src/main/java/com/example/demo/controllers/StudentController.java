@@ -27,7 +27,7 @@ public class StudentController {
     UserRepository userRepository;
 
     @GetMapping("/student")
-    public String loggedIn(HttpServletRequest request){
+    public String index(HttpServletRequest request){
 
         if(SessionHelper.isStudent(request)){
             return "studentDirectory/student";

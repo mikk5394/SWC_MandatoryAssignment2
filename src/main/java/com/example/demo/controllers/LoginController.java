@@ -52,22 +52,23 @@ public class LoginController {
                         @RequestParam(defaultValue = "") String password,
                         HttpServletRequest request) {
 
-        User user;
+
         HttpSession session = request.getSession();
+
         if (adminRespository.findByEmail(email) != null) {
-            user = adminRespository.findByEmail(email);
+            User user = adminRespository.findByEmail(email);
             if (user.getPassword().equals(password)) {
                 session.setAttribute("admin", user);
                 return "redirect:/admin";
             }
         } else if (teacherRepository.findByEmail(email) != null) {
-            user = teacherRepository.findByEmail(email);
+            User user = teacherRepository.findByEmail(email);
             if (user.getPassword().equals(password)) {
                 session.setAttribute("teacher", user);
                 return "redirect:/teacher";
             }
         } else if (studentRespository.findByEmail(email) != null) {
-            user = studentRespository.findByEmail(email);
+            User user = studentRespository.findByEmail(email);
             if (user.getPassword().equals(password)) {
                 session.setAttribute("student", user);
                 return "redirect:/student";
